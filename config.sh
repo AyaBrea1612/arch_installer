@@ -7,27 +7,27 @@ hwclock --systohc --utc
 echo zh_CN.UTF-8 UTF-8 > /etc/locale.gen
 locale-gen
 echo LANG=zh_CN.UTF-8 > /etc/locale.conf
-read -p "Input your hostname:  " HOSTNAME
-echo $HOSTNAME  > /etc/hostname
-echo Change your root passwd
-passwd
+# read -p "Input your hostname:  " HOSTNAME
+# echo $HOSTNAME  > /etc/hostname
+# echo Change your root passwd
+# passwd
 ##安装引导
-read -p "Are you efi ? (y or Enter  " TMP
-if (("$TMP"=="y"))
-then TMP=n
-while [ "$TMP" == n ];do
-pacman -S --noconfirm grub efibootmgr -y&&grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch&&grub-mkconfig -o /boot/grub/grub.cfg
-read -p "Successfully installed ? (n or Enter  " TMP
-done
-else TMP=n
-while [ "$TMP" == n ];do
-pacman -S --noconfirm grub&&fdisk -l
-read -p "Input the disk you want to install the grub  " GRUB
-grub-install --target=i386-pc $GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
-read -p "Successfully installed ? (n or Enter  " TMP
-done
-fi
+# read -p "Are you efi ? (y or Enter  " TMP
+# if (("$TMP"=="y"))
+# then TMP=n
+# while [ "$TMP" == n ];do
+# pacman -S --noconfirm grub efibootmgr -y&&grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Arch&&grub-mkconfig -o /boot/grub/grub.cfg
+# read -p "Successfully installed ? (n or Enter  " TMP
+# done
+# else TMP=n
+# while [ "$TMP" == n ];do
+# pacman -S --noconfirm grub&&fdisk -l
+# read -p "Input the disk you want to install the grub  " GRUB
+# grub-install --target=i386-pc $GRUB
+# grub-mkconfig -o /boot/grub/grub.cfg
+# read -p "Successfully installed ? (n or Enter  " TMP
+# done
+# fi
 
 ##安装显卡驱动
 TMP=n
