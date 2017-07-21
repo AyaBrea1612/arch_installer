@@ -51,14 +51,14 @@ Server = http://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch" > /etc/pacman.d/
 # TMP=n
 # while [ "$TMP" == n ]
 # do
-pacstrap /mnt base base-devel --force
+# pacstrap /mnt base base-devel --force
 # rm /mnt/etc/fstab
-genfstab -U -p /mnt >> /mnt/etc/fstab
-cat /mnt/etc/fstab
+# genfstab -U -p /mnt >> /mnt/etc/fstab
+# cat /mnt/etc/fstab
 # read -p "Successfully installed ? (n or Enter  " TMP
 # done
 ##进入已安装的系统
-wget https://raw.githubusercontent.com/AyaBrea1612/arch_installer/master/config.sh
-mv config.sh /mnt/root/config.sh
-chmod +x /mnt/root/config.sh
-arch-chroot /mnt /root/config.sh
+# wget https://raw.githubusercontent.com/AyaBrea1612/arch_installer/master/config.sh
+# mv config.sh /mnt/root/config.sh
+# chmod +x /mnt/root/config.sh
+# arch-chroot /mnt /root/config.sh
