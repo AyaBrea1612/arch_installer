@@ -161,13 +161,14 @@ ADSL 宽带连接：
 
 ---------------------------------------------------------------------------
 
+在/etc/pacman.conf添加:
 [archlinuxcn]
 SigLevel = Never
 Server = http://mirrors.ustc.edu.cn/archlinuxcn/$arch
 
 pacman -Syu yaourt
 
-
+---------------------------------------------------------------------------
 
 
 
