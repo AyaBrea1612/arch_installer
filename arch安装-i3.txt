@@ -1,0 +1,15 @@
+pacman -S i3
+
+pacman -S xorg xorg-xinit
+
+nano exec i3 > ~/.xinitrc
+
+编辑~/.xinitrc，即用vi命令打开，在vim记事本中修改，在最后一行添加（只有一个exec，修改掉）
+exec i3  
+
+但这里笔者输入~/.xinitrc时，显示没有这个路径，在wiki中查阅后，发现系统没有建立这个目录，需要自己重新建立，即输入
+cp /etc/X11/xinit/xinitrc ~/.xinitrc  
+这里起到的作用是将/etc/X11/xinit/xinitrc复制到~/.xinitrc
+
+运行i3wm
+startx  

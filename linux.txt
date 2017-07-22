@@ -1,0 +1,238 @@
+cfdisk   分区
+mkfs.ext4 /dev/sda1    格式化/dev/sda1（ext4格式）分区
+
+mkswap
+swapon
+
+clear  清屏
+
+mount /dev/sda1 /mnt   挂载
+
+pacstrap -i /mnt base base-devel  安装arch基本系统
+
+nano /etc/pacman.d/mirrorlist    打开配置源
+
+https://mirrors.ustc.edu.cn/archlinux/   中国科学技术大学开源软件镜像源
+
+genfstab -U -p /mnt >> /mnt/etc/fstab    通过你目前电脑挂载硬盘的情况自动生成fstab文件
+
+cat /mnt/etc/fstab 	查看fstab文件
+
+arch-chroot /mnt      arch-chroot /mnt 是进入到以/mnt为根目录的系统，cd /mnt 仍然是原来的系统
+
+echo 主机名> /etc/fstab  错的
+
+nano /etc/locale.gen    配置国际化  取消注释 en_us.utf8 zh_cn.utf8
+
+locale   查看国际化配置
+
+export LANG=en_US.UTF-8  修改国际化配置
+export LANG=zh_CN.UTF-8
+
+
+locale-gen    locale gen 安装
+
+pacman 软件包管理器  
+
+pacman -S安装或者升级单个软件包，或者一列软件包（包含依赖包）
+
+pacman -S grub sudo deepin deepin-extra   安装deepin桌面
+
+pacman -S xorg  安装 xorg  
+
+pacman -Ss xf86-video  搜索xf86-video 的包
+
+pacman -S xf86-video-vesa 
+
+pacman -S xorg-server xorg-server-utils 
+ 
+
+----引导
+pacman -S grub-bios
+
+grub-install /dev/sda   安装系统启动程序
+
+grub-mkconfig -o /boot/grub/grub.cfg
+----引导 end
+useradd -m -g users -G wheel 用户名  添加用户名
+userdel
+
+passwd 设置密码
+
+passwd
+
+sudo  用超级用户运行
+
+nano /etc/lightdm/lightdm.conf  用户桌面设置
+
+greeter-session=lightdm-deepin-greeter
+
+systcmctl cnable lightdm
+
+nano /etc/sudoers  sudo 配置（设置sudo不用密码）
+
+exit  退出
+
+umount -R /mnt  卸下/mnt挂载
+
+----------------------------------------------------------------------------
+reboot   重启
+
+shutdown 关机
+poweroff
+
+关机 (系统的关机、重启以及登出 ) 
+shutdown -h now 关闭系统(1) 
+init 0 关闭系统(2) 
+telinit 0 关闭系统(3) 
+shutdown -h hours:minutes & 按预定时间关闭系统 
+shutdown -c 取消按预定时间关闭系统 
+shutdown -r now 重启(1) 
+reboot 重启(2) 
+logout 注销 
+
+----------------------------------------------------------------
+
+https://aur.archlinux.org/packages   //包地址
+
+hostnamectl set-hostname xxxxx  //主机改名
+
+---------------------------------------------------------------------------
+
+xxx is not in the sudoers file.This incident will be reported.的解决方法
+
+1.切换到root用户下
+
+2.添加sudo文件的写权限,命令是:
+chmod u+w /etc/sudoers
+
+3.编辑sudoers文件
+vi /etc/sudoers
+找到这行 root ALL=(ALL) ALL,在他下面添加xxx ALL=(ALL) ALL (这里的xxx是你的用户名)
+
+ps:这里说下你可以sudoers添加下面四行中任意一条
+youuser            ALL=(ALL)                ALL
+%youuser           ALL=(ALL)                ALL
+youuser            ALL=(ALL)                NOPASSWD: ALL
+%youuser           ALL=(ALL)                NOPASSWD: ALL
+
+第一行:允许用户youuser执行sudo命令(需要输入密码).
+第二行:允许用户组youuser里面的用户执行sudo命令(需要输入密码).
+第三行:允许用户youuser执行sudo命令,并且在执行的时候不输入密码.
+第四行:允许用户组youuser里面的用户执行sudo命令,并且在执行的时候不输入密码.
+
+4.撤销sudoers文件写权限,命令:
+chmod u-w /etc/sudoers
+
+这样普通用户就可以使用sudo了.
+
+
+
+-----------------------------------------------------------------------
+--- 网络
+--- ---------------------------
+有线连接：
+# systemctl start dhcpcd    # 连接
+# # systemctl enable dhcpcd 以自动连接
+无线连接：
+# pacman -S iw wpa_supplicant dialog
+# wifi-menu	# 连接
+ADSL 宽带连接：
+# pacman -S rp-pppoe
+# pppoe-setup    # 配置
+# systemctl start adsl    # 连接
+# # systemctl enable adsl 以自动连接
+
+---------------------------------------------------------------------------
+
+[archlinuxcn]
+SigLevel = Never
+Server = http://mirrors.ustc.edu.cn/archlinuxcn/$arch
+
+pacman -Syu yaourt
+
+
+
+
+
+熟悉APT和YUM包管理的应该都知道，这两个包管理的使用命令都是采用“主命令+参数”的格式，比如“sudo apt-get install --reinstall pacname”。而pacman则是对此进行了简化，将参数变为主命令之下的二级命令，并对命令分类。也就是说pacman的命令是分层级的，而是用arch的都知道pacman的命令都只有一个字母，这样做的好处就是操作命令非常简短（不喜欢这种方式的依然可以采用“主命令+参数”甚至“一级命令+二级命令+参数”的格式。比如系统更新，APT命令为“sudo apt-get update&upgrade”，而pacman命令为“sudo pacman -Syu”，哪个方便一目了然。下面对pacman命令格式进行简单说明。
+如上所述，我们可以把pacman命令分为一级命令、二级命令。
+一级命令：-Q，-R，-S，-U……
+二级命令：-q，-l，-i，-s，-u，-g，-y，-w，-u，-n……
+一级命令与二级命令的区别是：一级命令要用大写，二级命令要用小写；一级命令一次只有一个，二级命令则一次可以一个或多个配合使用。举例如下：
+系统更新：sudo pacman -Syu
+说明：一级命令“-S”表示安装同步类命令，二级命令“y”表示刷新软件列表命令，二级命令“u”表示系统或软件包升级命令。
+安装软件：sudo pacman -S pacname
+说明：安装软件只需要一个一级命令“-S”即可。
+删除软件：sudo pacman -R pacname
+说明：删除软件同样只需要一个一级命令“-R”即可。
+删除软件并删除配置文件：sudo pacman -Rn pacname
+说明：删除软件的同时删除配置文件则需要加一个二级命令“n”，“n”表示“nosave”，即不保留配置文件。
+删除软件并删除不再需要的依赖：sudo pacman -Ru pacname
+说明：删除软件的同时删除不再被任何软件所需要的依赖则需要使用二级命令“u”，“u”表示“unneeded”，即不再需要。
+搜索软件包：sudo pacman -Ss pacname(keywords)
+说明：二级命令“s”表示“search”搜索。
+列出已安装包含某关键词的软件包：sudo pacman -Qq|grep keywords
+查看某软件包信息：sudo pacman -Qi pacname
+……
+以上只是最基本的用法，还有其他比如一个二级命令同时使用两次则表示强制作用等等特殊用法。而且同样的操作也会有两个不同命令，比如“sudo pacman -Rs pacname”同样是删除软件的同时删除不再需要的依赖，“sudo pacman -Si pacname”同样是查看某软件包信息等等。
+
+-------------------------------------------------------------------------------------------
+
+PS1变量中提示符各项含义:
+\d ：代表日期，格式为weekday month date，例如："Mon Aug 1"
+\H ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux
+\h ：仅取主机的第一个名字，如上例，则为fc4，.linux则被省略
+\t ：显示时间为24小时格式，如：HH：MM：SS
+\T ：显示时间为12小时格式
+\A ：显示时间为24小时格式：HH：MM
+\u ：当前用户的账号名称
+\v ：BASH的版本信息
+\w ：完整的工作目录名称。家目录会以 ~代替
+\W ：利用basename取得工作目录名称，所以只会列出最后一个目录
+\$ ：提示字符，如果是root时，提示符为：# ，普通用户则为：$
+
+vi ~/.bashrc
+    export PS1="[\u@localhost \w]\$"
+#如果希望立即生效的话
+source ~/.bashrc
+
+
+-------------------------------------------------------------------------------------------
+
+
+安装xfce4桌面环境
+
+详细安装和配置看：arch-wiki-xfce4
+
+pacman -S xfce4 xfce4-goodies
+
+安装LightDM登录管理器(显示管理器)
+
+详细安装和配置看arch-wiki-lighdm 
+我没有通过startx的方式启动桌面环境，而是使用了登录管理器lightdm 
+安装：
+
+pacman -S lightdm lightdm-gtk-greeter
+
+systemctl start lightdm			-- 启动
+------------------------------------------------------------------------------------
+
+#pacman -S xf86-video-ati     AMD显卡
+
+#pacman -S xf86-video-nouveau     N卡
+
+#pacman -S xf86-video-vesa     通用显卡
+
+#pacman -S xf86-video-vmware     vmware虚拟机的显卡
+-----------------------------------------------------------------------------
+ArchLinux的版本库里面包括：
+core-核心软件包
+extra-其他常用软件
+community-社区软件包，譬如Mysql等。
+testing-正在测试阶段，还没有正式加入源的软件包。通常软件版本比较新，但是不是非常稳定
+release-已经发布的软件包
+unstable-非正式的软件包，可能包括以前版本的软件或者测试软件
+因为Pacman的软件都是从源里面更新，因此在/etc/pacman.d里面配置这些软件源的地址。
+在/etc/pacman.d目录里面分别有上面几种软件类型对应的文件名，可以自己手工配置这些软件源的地址
+---------------------------------------------------------------------------------------------

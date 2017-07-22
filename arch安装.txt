@@ -1,0 +1,50 @@
+---------------------------------分区格式化
+fdisk -l 查看分区
+
+---------------------------------- 挂载
+mount
+
+--------------------------------- 设置源
+echo "## China                                                                                               
+Server = http://mirrors.163.com/archlinux/\$repo/os/\$arch                                               
+Server = http://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+
+pacman -Syy   更新源 （随便测试）
+
+----------------------------------安装系统
+pacstrap /mnt base base-devel
+
+
+----------------------------------设置fstab
+genfstab -U -p /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab --查看
+
+----------------------------------- 进入新系统
+arch-chroot /mnt
+
+----------------------------------设置时区
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime -f
+hwclock --systohc --utc
+
+---------------------------------- 编码设置
+nano /etc/locale.gen    配置国际化  取消注释 en_us.utf8 zh_cn.utf8
+locale-gen
+
+--export LANG=en_US.UTF-8 > /etc/locale.conf --英文显示
+--export LANG=zh_CN.UTF-8 > /etc/locale.conf --中文显示
+
+
+---------------------------------设置主机名
+echo archlinux > /etc/hostname
+
+----------------------------------安装GRUB
+pacman -S grub
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+---------------------------------卸载分区
+exit
+
+umount /mnt
+
+shutdowm -t now
