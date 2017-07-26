@@ -1,50 +1,51 @@
----------------------------------·ÖÇø¸ñÊ½»¯
-fdisk -l ²é¿´·ÖÇø
+ï»¿---------------------------------åˆ†åŒºæ ¼å¼åŒ–
+fdisk -l æŸ¥çœ‹åˆ†åŒº
 
----------------------------------- ¹ÒÔØ
+---------------------------------- æŒ‚è½½
 mount
 
---------------------------------- ÉèÖÃÔ´
+--------------------------------- è®¾ç½®æº
 echo "## China                                                                                               
 Server = http://mirrors.163.com/archlinux/\$repo/os/\$arch                                               
 Server = http://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 
-pacman -Syy   ¸üĞÂÔ´ £¨Ëæ±ã²âÊÔ£©
+pacman -Syy   æ›´æ–°æº ï¼ˆéšä¾¿æµ‹è¯•ï¼‰
 
-----------------------------------°²×°ÏµÍ³
+----------------------------------å®‰è£…ç³»ç»Ÿ
 pacstrap /mnt base base-devel
 
 
-----------------------------------ÉèÖÃfstab
+----------------------------------è®¾ç½®fstab
 genfstab -U -p /mnt >> /mnt/etc/fstab
-cat /mnt/etc/fstab --²é¿´
+cat /mnt/etc/fstab --æŸ¥çœ‹
 
------------------------------------ ½øÈëĞÂÏµÍ³
+----------------------------------- è¿›å…¥æ–°ç³»ç»Ÿ
 arch-chroot /mnt
 
-----------------------------------ÉèÖÃÊ±Çø
+----------------------------------è®¾ç½®æ—¶åŒº
 ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime -f
 hwclock --systohc --utc
 
----------------------------------- ±àÂëÉèÖÃ
-nano /etc/locale.gen    ÅäÖÃ¹ú¼Ê»¯  È¡Ïû×¢ÊÍ en_us.utf8 zh_cn.utf8
+---------------------------------- ç¼–ç è®¾ç½®
+nano /etc/locale.gen    é…ç½®å›½é™…åŒ–  å–æ¶ˆæ³¨é‡Š en_us.utf8 zh_cn.utf8
 locale-gen
 
---export LANG=en_US.UTF-8 > /etc/locale.conf --Ó¢ÎÄÏÔÊ¾
---export LANG=zh_CN.UTF-8 > /etc/locale.conf --ÖĞÎÄÏÔÊ¾
+--export LANG=en_US.UTF-8 > /etc/locale.conf --è‹±æ–‡æ˜¾ç¤º
+--export LANG=zh_CN.UTF-8 > /etc/locale.conf --ä¸­æ–‡æ˜¾ç¤º
 
 
----------------------------------ÉèÖÃÖ÷»úÃû
+---------------------------------è®¾ç½®ä¸»æœºå
 echo archlinux > /etc/hostname
 
-----------------------------------°²×°GRUB
+----------------------------------å®‰è£…GRUB
 pacman -S grub
 grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
----------------------------------Ğ¶ÔØ·ÖÇø
+---------------------------------å¸è½½åˆ†åŒº
 exit
 
 umount /mnt
 
 shutdowm -t now
+----------------------------------

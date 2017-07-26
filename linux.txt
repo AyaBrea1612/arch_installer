@@ -1,167 +1,167 @@
-cfdisk   ����
-mkfs.ext4 /dev/sda1    ��ʽ��/dev/sda1��ext4��ʽ������
+﻿cfdisk   分区
+mkfs.ext4 /dev/sda1    格式化/dev/sda1（ext4格式）分区
 
 mkswap
 swapon
 
-clear  ����
+clear  清屏
 
-mount /dev/sda1 /mnt   ����
+mount /dev/sda1 /mnt   挂载
 
-pacstrap -i /mnt base base-devel  ��װarch����ϵͳ
+pacstrap -i /mnt base base-devel  安装arch基本系统
 
-nano /etc/pacman.d/mirrorlist    ������Դ
+nano /etc/pacman.d/mirrorlist    打开配置源
 
-https://mirrors.ustc.edu.cn/archlinux/   �й���ѧ������ѧ��Դ��������Դ
+https://mirrors.ustc.edu.cn/archlinux/   中国科学技术大学开源软件镜像源
 
-genfstab -U -p /mnt >> /mnt/etc/fstab    ͨ����Ŀǰ���Թ���Ӳ�̵�����Զ�����fstab�ļ�
+genfstab -U -p /mnt >> /mnt/etc/fstab    通过你目前电脑挂载硬盘的情况自动生成fstab文件
 
-cat /mnt/etc/fstab 	�鿴fstab�ļ�
+cat /mnt/etc/fstab 	查看fstab文件
 
-arch-chroot /mnt      arch-chroot /mnt �ǽ��뵽��/mntΪ��Ŀ¼��ϵͳ��cd /mnt ��Ȼ��ԭ����ϵͳ
+arch-chroot /mnt      arch-chroot /mnt 是进入到以/mnt为根目录的系统，cd /mnt 仍然是原来的系统
 
-echo ������> /etc/fstab  ����
+echo 主机名> /etc/fstab  错的
 
-nano /etc/locale.gen    ���ù��ʻ�  ȡ��ע�� en_us.utf8 zh_cn.utf8
+nano /etc/locale.gen    配置国际化  取消注释 en_us.utf8 zh_cn.utf8
 
-locale   �鿴���ʻ�����
+locale   查看国际化配置
 
-export LANG=en_US.UTF-8  �޸Ĺ��ʻ�����
+export LANG=en_US.UTF-8  修改国际化配置
 export LANG=zh_CN.UTF-8
 
 
-locale-gen    locale gen ��װ
+locale-gen    locale gen 安装
 
-pacman ������������  
+pacman 软件包管理器  
 
-pacman -S��װ������������������������һ����������������������
+pacman -S安装或者升级单个软件包，或者一列软件包（包含依赖包）
 
-pacman -S grub sudo deepin deepin-extra   ��װdeepin����
+pacman -S grub sudo deepin deepin-extra   安装deepin桌面
 
-pacman -S xorg  ��װ xorg  
+pacman -S xorg  安装 xorg  
 
-pacman -Ss xf86-video  ����xf86-video �İ�
+pacman -Ss xf86-video  搜索xf86-video 的包
 
 pacman -S xf86-video-vesa 
 
 pacman -S xorg-server xorg-server-utils 
  
 
-----����
+----引导
 pacman -S grub-bios
 
-grub-install /dev/sda   ��װϵͳ��������
+grub-install /dev/sda   安装系统启动程序
 
 grub-mkconfig -o /boot/grub/grub.cfg
-----���� end
+----引导 end
 
-useradd -m -g users -G wheel �û���  �����û���
--c<��ע>�����ϱ�ע���֡���ע���ֻᱣ����passwd�ı�ע��λ�У� 
--d<����Ŀ¼>��ָ���û�����ʱ����ʼĿ¼�� 
--D�����Ԥ��ֵ�� 
--e<��Ч����>��ָ���ʺŵ���Ч���ޣ� 
--f<��������>��ָ����������ں�����켴�رո��ʺţ� 
--g<Ⱥ��>��ָ���û�������Ⱥ�飻 
--G<Ⱥ��>��ָ���û������ĸ���Ⱥ�飻 
--m���Զ������û��ĵ���Ŀ¼�� 
--M����Ҫ�Զ������û��ĵ���Ŀ¼�� 
--n��ȡ���������û�����Ϊ����Ⱥ�飻 
--r������ϵͳ�ʺţ� 
--s��ָ���û��������ʹ�õ�shell�� 
--u��ָ���û�id��
+useradd -m -g users -G wheel 用户名  添加用户名
+-c<备注>：加上备注文字。备注文字会保存在passwd的备注栏位中； 
+-d<登入目录>：指定用户登入时的启始目录； 
+-D：变更预设值； 
+-e<有效期限>：指定帐号的有效期限； 
+-f<缓冲天数>：指定在密码过期后多少天即关闭该帐号； 
+-g<群组>：指定用户所属的群组； 
+-G<群组>：指定用户所属的附加群组； 
+-m：自动建立用户的登入目录； 
+-M：不要自动建立用户的登入目录； 
+-n：取消建立以用户名称为名的群组； 
+-r：建立系统帐号； 
+-s：指定用户登入后所使用的shell； 
+-u：指定用户id。
 
-userdel -r ɾ���û���
--r ��ɾ���û�����Ŀ¼�Լ�Ŀ¼�������ļ�
+userdel -r 删除用户名
+-r 　删除用户登入目录以及目录中所有文件
 
-passwd ��������
+passwd 设置密码
 
 passwd
 
-sudo  �ó����û�����
+sudo  用超级用户运行
 
-nano /etc/lightdm/lightdm.conf  �û���������
+nano /etc/lightdm/lightdm.conf  用户桌面设置
 
 greeter-session=lightdm-deepin-greeter
 
 systcmctl cnable lightdm
 
-nano /etc/sudoers  sudo ���ã�����sudo�������룩
+nano /etc/sudoers  sudo 配置（设置sudo不用密码）
 
-exit  �˳�
+exit  退出
 
-umount -R /mnt  ж��/mnt����
+umount -R /mnt  卸下/mnt挂载
 
 ----------------------------------------------------------------------------
-reboot   ����
+reboot   重启
 
-shutdown �ػ�
+shutdown 关机
 poweroff
 
-�ػ� (ϵͳ�Ĺػ��������Լ��ǳ� ) 
-shutdown -h now �ر�ϵͳ(1) 
-init 0 �ر�ϵͳ(2) 
-telinit 0 �ر�ϵͳ(3) 
-shutdown -h hours:minutes & ��Ԥ��ʱ��ر�ϵͳ 
-shutdown -c ȡ����Ԥ��ʱ��ر�ϵͳ 
-shutdown -r now ����(1) 
-reboot ����(2) 
-logout ע�� 
+关机 (系统的关机、重启以及登出 ) 
+shutdown -h now 关闭系统(1) 
+init 0 关闭系统(2) 
+telinit 0 关闭系统(3) 
+shutdown -h hours:minutes & 按预定时间关闭系统 
+shutdown -c 取消按预定时间关闭系统 
+shutdown -r now 重启(1) 
+reboot 重启(2) 
+logout 注销 
 
 ----------------------------------------------------------------
 
-https://aur.archlinux.org/packages   //����ַ
+https://aur.archlinux.org/packages   //包地址
 
-hostnamectl set-hostname xxxxx  //��������
+hostnamectl set-hostname xxxxx  //主机改名
 
 ---------------------------------------------------------------------------
 
-xxx is not in the sudoers file.This incident will be reported.�Ľ������
+xxx is not in the sudoers file.This incident will be reported.的解决方法
 
-1.�л���root�û���
+1.切换到root用户下
 
-2.����sudo�ļ���дȨ��,������:
+2.添加sudo文件的写权限,命令是:
 chmod u+w /etc/sudoers
 
-3.�༭sudoers�ļ�
+3.编辑sudoers文件
 vi /etc/sudoers
-�ҵ����� root ALL=(ALL) ALL,������������xxx ALL=(ALL) ALL (�����xxx������û���)
+找到这行 root ALL=(ALL) ALL,在他下面添加xxx ALL=(ALL) ALL (这里的xxx是你的用户名)
 
-ps:����˵�������sudoers������������������һ��
+ps:这里说下你可以sudoers添加下面四行中任意一条
 youuser            ALL=(ALL)                ALL
 %youuser           ALL=(ALL)                ALL
 youuser            ALL=(ALL)                NOPASSWD: ALL
 %youuser           ALL=(ALL)                NOPASSWD: ALL
 
-��һ��:�����û�youuserִ��sudo����(��Ҫ��������).
-�ڶ���:�����û���youuser������û�ִ��sudo����(��Ҫ��������).
-������:�����û�youuserִ��sudo����,������ִ�е�ʱ����������.
-������:�����û���youuser������û�ִ��sudo����,������ִ�е�ʱ����������.
+第一行:允许用户youuser执行sudo命令(需要输入密码).
+第二行:允许用户组youuser里面的用户执行sudo命令(需要输入密码).
+第三行:允许用户youuser执行sudo命令,并且在执行的时候不输入密码.
+第四行:允许用户组youuser里面的用户执行sudo命令,并且在执行的时候不输入密码.
 
-4.����sudoers�ļ�дȨ��,����:
+4.撤销sudoers文件写权限,命令:
 chmod u-w /etc/sudoers
 
-������ͨ�û��Ϳ���ʹ��sudo��.
+这样普通用户就可以使用sudo了.
 
 
 
 -----------------------------------------------------------------------
---- ����
+--- 网络
 --- ---------------------------
-�������ӣ�
-# systemctl start dhcpcd    # ����
-# # systemctl enable dhcpcd ���Զ�����
-�������ӣ�
+有线连接：
+# systemctl start dhcpcd    # 连接
+# # systemctl enable dhcpcd 以自动连接
+无线连接：
 # pacman -S iw wpa_supplicant dialog
-# wifi-menu	# ����
-ADSL �������ӣ�
+# wifi-menu	# 连接
+ADSL 宽带连接：
 # pacman -S rp-pppoe
-# pppoe-setup    # ����
-# systemctl start adsl    # ����
-# # systemctl enable adsl ���Զ�����
+# pppoe-setup    # 配置
+# systemctl start adsl    # 连接
+# # systemctl enable adsl 以自动连接
 
 ---------------------------------------------------------------------------
 
-��/etc/pacman.conf����:
+在/etc/pacman.conf添加:
 [archlinuxcn]
 SigLevel = Never
 Server = http://mirrors.ustc.edu.cn/archlinuxcn/$arch
@@ -172,84 +172,104 @@ pacman -Syu yaourt
 
 
 
-��ϤAPT��YUM��������Ӧ�ö�֪������������������ʹ������ǲ��á�������+�������ĸ�ʽ�����硰sudo apt-get install --reinstall pacname������pacman���ǶԴ˽����˼򻯣���������Ϊ������֮�µĶ����������������ࡣҲ����˵pacman�������Ƿֲ㼶�ģ�������arch�Ķ�֪��pacman�����ֻ��һ����ĸ���������ĺô����ǲ�������ǳ���̣���ϲ�����ַ�ʽ����Ȼ���Բ��á�������+������������һ������+��������+�������ĸ�ʽ������ϵͳ���£�APT����Ϊ��sudo apt-get update&upgrade������pacman����Ϊ��sudo pacman -Syu�����ĸ�����һĿ��Ȼ�������pacman�����ʽ���м�˵����
-�������������ǿ��԰�pacman�����Ϊһ������������
-һ�����-Q��-R��-S��-U����
-�������-q��-l��-i��-s��-u��-g��-y��-w��-u��-n����
-һ���������������������ǣ�һ������Ҫ�ô�д����������Ҫ��Сд��һ������һ��ֻ��һ��������������һ�ο���һ���������ʹ�á��������£�
-ϵͳ���£�sudo pacman -Syu
-˵����һ�����-S����ʾ��װͬ��������������y����ʾˢ�������б�����������u����ʾϵͳ���������������
-��װ������sudo pacman -S pacname
-˵������װ����ֻ��Ҫһ��һ�����-S�����ɡ�
-ɾ��������sudo pacman -R pacname
-˵����ɾ������ͬ��ֻ��Ҫһ��һ�����-R�����ɡ�
-ɾ��������ɾ�������ļ���sudo pacman -Rn pacname
-˵����ɾ��������ͬʱɾ�������ļ�����Ҫ��һ���������n������n����ʾ��nosave�����������������ļ���
-ɾ��������ɾ��������Ҫ��������sudo pacman -Ru pacname
-˵����ɾ��������ͬʱɾ�����ٱ��κ���������Ҫ����������Ҫʹ�ö������u������u����ʾ��unneeded������������Ҫ��
-������������sudo pacman -Ss pacname(keywords)
-˵�����������s����ʾ��search��������
-�г��Ѱ�װ����ĳ�ؼ��ʵ���������sudo pacman -Qq|grep keywords
-�鿴ĳ��������Ϣ��sudo pacman -Qi pacname
-����
-����ֻ����������÷���������������һ����������ͬʱʹ���������ʾǿ�����õȵ������÷�������ͬ���Ĳ���Ҳ����������ͬ������硰sudo pacman -Rs pacname��ͬ����ɾ��������ͬʱɾ��������Ҫ����������sudo pacman -Si pacname��ͬ���ǲ鿴ĳ��������Ϣ�ȵȡ�
+熟悉APT和YUM包管理的应该都知道，这两个包管理的使用命令都是采用“主命令+参数”的格式，比如“sudo apt-get install --reinstall pacname”。而pacman则是对此进行了简化，将参数变为主命令之下的二级命令，并对命令分类。也就是说pacman的命令是分层级的，而是用arch的都知道pacman的命令都只有一个字母，这样做的好处就是操作命令非常简短（不喜欢这种方式的依然可以采用“主命令+参数”甚至“一级命令+二级命令+参数”的格式。比如系统更新，APT命令为“sudo apt-get update&upgrade”，而pacman命令为“sudo pacman -Syu”，哪个方便一目了然。下面对pacman命令格式进行简单说明。
+如上所述，我们可以把pacman命令分为一级命令、二级命令。
+一级命令：-Q，-R，-S，-U……
+二级命令：-q，-l，-i，-s，-u，-g，-y，-w，-u，-n……
+一级命令与二级命令的区别是：一级命令要用大写，二级命令要用小写；一级命令一次只有一个，二级命令则一次可以一个或多个配合使用。举例如下：
+系统更新：sudo pacman -Syu
+说明：一级命令“-S”表示安装同步类命令，二级命令“y”表示刷新软件列表命令，二级命令“u”表示系统或软件包升级命令。
+安装软件：sudo pacman -S pacname
+说明：安装软件只需要一个一级命令“-S”即可。
+删除软件：sudo pacman -R pacname
+说明：删除软件同样只需要一个一级命令“-R”即可。
+删除软件并删除配置文件：sudo pacman -Rn pacname
+说明：删除软件的同时删除配置文件则需要加一个二级命令“n”，“n”表示“nosave”，即不保留配置文件。
+删除软件并删除不再需要的依赖：sudo pacman -Ru pacname
+说明：删除软件的同时删除不再被任何软件所需要的依赖则需要使用二级命令“u”，“u”表示“unneeded”，即不再需要。
+搜索软件包：sudo pacman -Ss pacname(keywords)
+说明：二级命令“s”表示“search”搜索。
+列出已安装包含某关键词的软件包：sudo pacman -Qq|grep keywords
+查看某软件包信息：sudo pacman -Qi pacname
+……
+以上只是最基本的用法，还有其他比如一个二级命令同时使用两次则表示强制作用等等特殊用法。而且同样的操作也会有两个不同命令，比如“sudo pacman -Rs pacname”同样是删除软件的同时删除不再需要的依赖，“sudo pacman -Si pacname”同样是查看某软件包信息等等。
 
 -------------------------------------------------------------------------------------------
 
-PS1��������ʾ�������:
-\d ���������ڣ���ʽΪweekday month date�����磺"Mon Aug 1"
-\H ���������������ơ����磺�ҵĻ�������Ϊ��fc4.linux����������ƾ���fc4.linux
-\h ����ȡ�����ĵ�һ�����֣�����������Ϊfc4��.linux��ʡ��
-\t ����ʾʱ��Ϊ24Сʱ��ʽ���磺HH��MM��SS
-\T ����ʾʱ��Ϊ12Сʱ��ʽ
-\A ����ʾʱ��Ϊ24Сʱ��ʽ��HH��MM
-\u ����ǰ�û����˺�����
-\v ��BASH�İ汾��Ϣ
-\w �������Ĺ���Ŀ¼���ơ���Ŀ¼���� ~����
-\W ������basenameȡ�ù���Ŀ¼���ƣ�����ֻ���г����һ��Ŀ¼
-\$ ����ʾ�ַ��������rootʱ����ʾ��Ϊ��# ����ͨ�û���Ϊ��$
+PS1变量中提示符各项含义:
+\d ：代表日期，格式为weekday month date，例如："Mon Aug 1"
+\H ：完整的主机名称。例如：我的机器名称为：fc4.linux，则这个名称就是fc4.linux
+\h ：仅取主机的第一个名字，如上例，则为fc4，.linux则被省略
+\t ：显示时间为24小时格式，如：HH：MM：SS
+\T ：显示时间为12小时格式
+\A ：显示时间为24小时格式：HH：MM
+\u ：当前用户的账号名称
+\v ：BASH的版本信息
+\w ：完整的工作目录名称。家目录会以 ~代替
+\W ：利用basename取得工作目录名称，所以只会列出最后一个目录
+\$ ：提示字符，如果是root时，提示符为：# ，普通用户则为：$
 
 vi ~/.bashrc
     export PS1="[\u@localhost \w]\$"
-#���ϣ��������Ч�Ļ�
+#如果希望立即生效的话
 source ~/.bashrc
 
 
 -------------------------------------------------------------------------------------------
 
 
-��װxfce4���滷��
+安装xfce4桌面环境
 
-��ϸ��װ�����ÿ���arch-wiki-xfce4
+详细安装和配置看：arch-wiki-xfce4
 
 pacman -S xfce4 xfce4-goodies
 
-��װLightDM��¼������(��ʾ������)
+安装LightDM登录管理器(显示管理器)
 
-��ϸ��װ�����ÿ�arch-wiki-lighdm 
-��û��ͨ��startx�ķ�ʽ�������滷��������ʹ���˵�¼������lightdm 
-��װ��
+详细安装和配置看arch-wiki-lighdm 
+我没有通过startx的方式启动桌面环境，而是使用了登录管理器lightdm 
+安装：
 
 pacman -S lightdm lightdm-gtk-greeter
 
-systemctl start lightdm			-- ����
+systemctl start lightdm			-- 启动
 ------------------------------------------------------------------------------------
 
-#pacman -S xf86-video-ati     AMD�Կ�
+#pacman -S xf86-video-ati     AMD显卡
 
-#pacman -S xf86-video-nouveau     N��
+#pacman -S xf86-video-nouveau     N卡
 
-#pacman -S xf86-video-vesa     ͨ���Կ�
+#pacman -S xf86-video-vesa     通用显卡
 
-#pacman -S xf86-video-vmware     vmware��������Կ�
+#pacman -S xf86-video-vmware     vmware虚拟机的显卡
 -----------------------------------------------------------------------------
-ArchLinux�İ汾�����������
-core-����������
-extra-������������
-community-������������Ʃ��Mysql�ȡ�
-testing-���ڲ��Խ׶Σ���û����ʽ����Դ����������ͨ�������汾�Ƚ��£����ǲ��Ƿǳ��ȶ�
-release-�Ѿ�������������
-unstable-����ʽ�������������ܰ�����ǰ�汾���������߲�������
-��ΪPacman���������Ǵ�Դ������£������/etc/pacman.d����������Щ����Դ�ĵ�ַ��
-��/etc/pacman.dĿ¼����ֱ������漸���������Ͷ�Ӧ���ļ����������Լ��ֹ�������Щ����Դ�ĵ�ַ
----------------------------------------------------------------------------------------------
+ArchLinux的版本库里面包括：
+core-核心软件包
+extra-其他常用软件
+community-社区软件包，譬如Mysql等。
+testing-正在测试阶段，还没有正式加入源的软件包。通常软件版本比较新，但是不是非常稳定
+release-已经发布的软件包
+unstable-非正式的软件包，可能包括以前版本的软件或者测试软件
+因为Pacman的软件都是从源里面更新，因此在/etc/pacman.d里面配置这些软件源的地址。
+在/etc/pacman.d目录里面分别有上面几种软件类型对应的文件名，可以自己手工配置这些软件源的地址
+--------------------------------------------------------------------------------------------
+systemctl可以列出正在运行的服务状态，
+systemd-cgls以树形列出正在运行的进程，它可以递归显示控制组内容。
+
+启动一个服务：systemctl start postfix.service
+关闭一个服务：systemctl stop postfix.service
+重启一个服务：systemctl restart postfix.service
+显示一个服务的状态：systemctl status postfix.service
+在开机时启用一个服务：systemctl enable postfix.service
+在开机时禁用一个服务：systemctl disable postfix.service
+查看服务是否开机启动：systemctl is-enabled postfix.service
+查看已启动的服务列表：systemctl list-unit-files|grep enabled
+查看启动失败的服务列表：systemctl --failed
+
+PS：使用命令 systemctl is-enabled postfix.service 得到的值可以是enable、disable或static，这里的 static 它是指对应的 Unit 文件中没有定义[Install]区域，因此无法配置为开机启动服务。 
+
+说明：启用服务就是在当前“runlevel”的配置文件目录/etc/systemd/system/multi-user.target.wants/里，建立/usr/lib/systemd/system里面对应服务配置文件的软链接；禁用服务就是删除此软链接，添加服务就是添加软连接
+
+----------------------------------------------------------
+screenfetch   装逼利器
+----------------------------------------------------------
