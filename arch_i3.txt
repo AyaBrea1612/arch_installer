@@ -14,3 +14,7 @@ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 运行i3wm
 startx
 -----------------------------
+
+lxappearance  chromium  wqy-microhei  thunar gcc vim
+
+https://github.com/horst3180/Arc-theme#manual-installation
