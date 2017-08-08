@@ -2,6 +2,8 @@
 
 pacman -S i3 dmenu
 
+
+
 echo exec i3 > ~/.xinitrc
 
 编辑~/.xinitrc，即用vi命令打开，在vim记事本中修改，在最后一行添加（只有一个exec，修改掉）
@@ -15,6 +17,17 @@ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 startx
 -----------------------------
 
-lxappearance  chromium  wqy-microhei  thunar gcc vim
+thunar lxappearance  chromium  wqy-microhei gcc vim
 
 https://github.com/horst3180/Arc-theme#manual-installation
+
+
+------------------------输入法
+pacman -S fcitx fcitx-googlepinyin fcitx-configtool
+-- config 
+exec --no-startup-id fcitx
+
+
+-------------------------
+htop		显示系统中正在运行的进程的实时状态
+-------------------
