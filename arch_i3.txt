@@ -23,8 +23,8 @@ https://github.com/horst3180/Arc-theme#manual-installation
 
 
 ------------------------输入法
-pacman -S fcitx fcitx-googlepinyin fcitx-configtool
--- config 
+pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
+-- config
 exec --no-startup-id fcitx
 
 
