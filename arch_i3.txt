@@ -17,13 +17,17 @@ cp /etc/X11/xinit/xinitrc ~/.xinitrc
 startx
 -----------------------------
 
-thunar lxappearance  chromium  wqy-microhei gcc vim
+thunar lxappearance 	--文件管理器（1）
+nautilus				--文件管理器（2）
+nemo					--文件管理器（3）推荐
+
+chromium  wqy-microhei gcc vim
 
 https://github.com/horst3180/Arc-theme#manual-installation
 
 
 ------------------------输入法
-pacman -S fcitx fcitx-googlepinyin fcitx-configtool
+pacman -S fcitx fcitx-im fcitx-googlepinyin fcitx-configtool
 -- config 
 exec --no-startup-id fcitx
 
