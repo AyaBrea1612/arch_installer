@@ -7,3 +7,5 @@ nemo					--文件管理器（3）推荐
 htop		显示系统中正在运行的进程的实时状态
 
 screenfetch   装逼利器
+
+git-cola   git  客户端
