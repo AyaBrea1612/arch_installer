@@ -1,0 +1,10 @@
+service mysqld stop   停止数据库
+
+拷贝数据 cp -a （保留权限）
+
+修改 my.cnf 
+
+/etc/apparmor.d/usr.sbin.mysqld 修改权限
+
+
+serivce mysql start 开启数据库
