@@ -1,0 +1,8 @@
+https://github.com/psifidotos/Latte-Dock   菜单栏
+
+sudo apt-get remove fcitx-ui-qimpanel  输入法没办法换皮肤 去掉fcitx-ui-qimpanel
+
+
+温度 thermal monitor 
+
+网络 netspeed widget
