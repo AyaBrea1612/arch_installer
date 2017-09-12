@@ -7,4 +7,4 @@ service mysqld stop   停止数据库
 /etc/apparmor.d/usr.sbin.mysqld 修改权限
 
 
-serivce mysql start 开启数据库
+service mysql start 开启数据库
