@@ -1,0 +1,43 @@
+
+#include<stdio.h>
+ 
+int main(void)
+{
+    printf("hello\n");
+    return 0;
+}
+
+预编译过程
+这个过程处理宏定义和include，去除注释，不会对语法进行检查。
+可以看到预编译后，代码从5行扩展到了910行。
+
+gcc -E a.c -o a.i
+cat a.c|wc -l
+5
+
+cat a.i|wc -l
+910
+
+编译过程
+这个阶段，检查语法，生成汇编代码。
+
+gcc -S a.i -o a.s
+cat a.s|wc-l
+59
+
+汇编过程
+这个阶段，生成目标代码。
+此过程生成ELF格式的目标代码。
+
+gcc -c a.s -o a.o
+file a.o
+a.o:ELF64-bitLSBrelocatable,AMDx86-64,version1(SYSV),notstripped
+
+链接过程
+链接过程。生成可执行代码。链接分为两种，一种是静态链接，另外一种是动态链接。使用静态链接的好处是，依赖的动态链接库较少，对动态链接库的版本不会很敏感，具有较好的兼容性；缺点是生成的程序比较大。使用动态链接的好处是，生成的程序比较小，占用较少的内存。
+
+gcc a.o -o a
+程序运行：
+
+./a
+hello
