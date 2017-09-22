@@ -1,0 +1,5 @@
+chsh -s /bin/zsh       换默认 shell
+oh-my-zsh              快配置（gnzh 主题）
+
+highlighting           命令检测插件
+autosuggestions        历史提示插件

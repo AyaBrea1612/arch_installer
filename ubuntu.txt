@@ -1,0 +1,4 @@
+sudo dpkg --add-architecture i386 	--64位运行32位 添加支持
+sudo apt-get update
+
+sudo apt-get -f install			-- 修复依赖包
