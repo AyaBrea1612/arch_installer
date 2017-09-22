@@ -1,1 +1,1 @@
-arch lunux 安装脚本
+linux 笔记
