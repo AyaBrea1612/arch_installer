@@ -43,6 +43,7 @@ echo archlinux > /etc/hostname
 ----------------------------------安装GRUB
 pacman -S grub
 grub-install /dev/sda
+-- grub-install --force /dev/sda --强行修改
 grub-mkconfig -o /boot/grub/grub.cfg
 
 ---------------------------------卸载分区
