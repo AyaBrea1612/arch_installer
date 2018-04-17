@@ -18,3 +18,14 @@ firewall-cmd --zone=public --add-port=80/tcp --permanent
 重启防火墙：
 	systemctl stop firewalld.service  
 	systemctl start firewalld.service  
+
+
+配置文件
+	/etc/httpd/conf/httpd.conf
+
+	#端口监听,我们将*改成了我们的独立ip
+	Listen *:80
+
+	#修改了DocumentRoot目录
+	DocumentRoot /***
+
