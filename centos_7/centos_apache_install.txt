@@ -1,4 +1,4 @@
-安装Apache
+﻿安装Apache
 
 yum -y install httpd
 
@@ -28,4 +28,7 @@ firewall-cmd --zone=public --add-port=80/tcp --permanent
 
 	#修改了DocumentRoot目录
 	DocumentRoot /***
+
+安装 php
+	yum install php php-devel
 
