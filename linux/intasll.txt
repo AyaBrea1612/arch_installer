@@ -1,5 +1,6 @@
 1， sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi gcc-aarch64-linux-gnu eclipse-cdt git libdw-dev systemtap systemtap-runtime
 
+2. git clone https://github.com/figozhang/runninglinuxkernel_4.0
 
 3.
 export ARCH=arm64
