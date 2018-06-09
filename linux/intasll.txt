@@ -1,15 +1,15 @@
-﻿1， sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi gcc-aarch64-linux-gnu eclipse-cdt git
-
-
-2 git clone https://github.com/figozhang/runninglinuxkernel_4.0.git
+1， sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi gcc-aarch64-linux-gnu eclipse-cdt git libdw-dev systemtap systemtap-runtime
 
 
 3.
-export ARCH=arm
-export CROSS_COMPILE=arm-none-eabi
-sudo mknod console c 5 j
-make bzImage -j4
-make dtbs
+export ARCH=arm64
+export CROSS_COMPILE= aarch64-linux-gnu-
+cd _install_arm64/dev
+sudo mknod console c 5 1
+cd runninglinuxkernel_4.0 
+make defconfig (在runninglinuxkernel_4.0目录下输入make命令)
+make –j4 
+
 
 4.
-qemu-system-arm -nographic -M vexpress-a9 -m 1024M -kernel arch/arm/boot/zImage-append "rdinit=/linuxrc console=ttyAMA0 loglevel=8" -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb
+qemu-system-arm -M vexpress-a9 -smp 4 -m 1024M -kernel arch/arm/boot/zImage  -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8" -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic
