@@ -1,4 +1,4 @@
-﻿1， sudo apt-get install qemu libncures5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi gcc-aarch64-linux-gun eclipse-cdt git
+﻿1， sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi gcc-aarch64-linux-gnu eclipse-cdt git
 
 
 2 git clone https://github.com/figozhang/runninglinuxkernel_4.0.git
