@@ -1,0 +1,15 @@
+﻿1， sudo apt-get install qemu libncures5-dev gcc-arm-linux-gnueabi build-essential gdb-arm-none-eabi gcc-aarch64-linux-gun eclipse-cdt git
+
+
+2 git clone https://github.com/figozhang/runninglinuxkernel_4.0.git
+
+
+3.
+export ARCH=arm
+export CROSS_COMPILE=arm-none-eabi
+sudo mknod console c 5 j
+make bzImage -j4
+make dtbs
+
+4.
+qemu-system-arm -nographic -M vexpress-a9 -m 1024M -kernel arch/arm/boot/zImage-append "rdinit=/linuxrc console=ttyAMA0 loglevel=8" -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb
