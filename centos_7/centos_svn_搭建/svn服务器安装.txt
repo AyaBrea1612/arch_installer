@@ -1,0 +1,63 @@
+
+sudo yum install subversion				svn 安装
+
+svnserve --version						测试安装是否成功
+
+sudo mkdir -p /var/svn 					创建版本库
+
+sudo svnadmin create /var/svn/mg_77		创建版本库
+
+--如果删除版本库：
+--$ sudo rm -rf /var/svn/mg_77
+
+config									库文件配置文件夹
+
+
+
+每个版本库创建之后都会生成svnserve.conf主要配置文件
+
+/conf/svnserve.conf
+编辑示例：
+[general]
+anon-access = none                #控制非鉴权用户访问版本库的权限
+auth-access = write                 #控制鉴权用户访问版本库的权限
+password-db = passwd           #指定用户名口令文件名
+authz-db = authz                     #指定权限配置文件名
+realm = /var/svn                    #指定版本库的认证域，即在登录时提示的认证域名称
+
+
+编辑svn用户配置文件
+/conf/passwd
+
+编辑示例：
+[users]
+admin = admin                #用户，密码
+fuhd = fuhd                #用户，密码
+test = test                #用户，密码
+5. 编辑svn权限控制配置文件
+
+/conf/authz
+编辑示例：
+[groups]
+admin = admin         #admin为用户组,等号之后的admin为用户
+test = fuhd,test
+
+[somnus:/]                #表示根目录（/var/svn/somnus），somnus: 对应前面配置的realm = somnus
+@admin = rw            ＃表示admin组对根目录有读写权限,r为读，w为写
+
+[somnus:/test]         #表示test目录（/var/svn/somnus/test）
+@test = rw                #表示test组对test目录有读写权限
+
+
+启动，查看和停止SVN服务
+启动SVN服务：
+# -d : 守护进程  -r : svn数据根目录 
+$ sudo svnserve -dr /var/svn            #用root权限启动
+
+查看SVN服务：
+$ ps aux|grep svnserve               #默认端口为：3690
+
+防火墙 开启3690（svn默认端口）端口 不然svn用不了
+$ sudo firewall-cmd --permanent --add-service=telnet
+$ sudo firewall-cmd --permanent --add-port=3690/tcp
+$ sudo firewall-cmd --reload
